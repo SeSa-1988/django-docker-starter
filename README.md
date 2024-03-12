@@ -1,9 +1,12 @@
-# Template for new Docker + Django + Postgres + Tailwind Projects
+# Beginner Template and Instructions for new Docker + Django + Postgres + Tailwind Projects
 
-Basic structure of a new docker + django + postgresql + tailwind project.
+Basic structure and instructions for a new project with: <br>
+Docker, Django, Postgresql, Tailwind
+
 The goal is to provide a comfortable starting point for new projects with this tech stack.
 
-Its based on this: https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/django/
+This repository is based on:
+https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/django/
 *(It didnt work for me)*
 
 **WARNING:** 
@@ -71,23 +74,29 @@ https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 
 ## Installing new python packages
 
-1. Add package 
-to requirements.txt
+1. Add package to requirements.txt
 
-2. Rebuild the image<br>
-`docker compose build`
+2. Run Shell<br>
+`docker compose exec web sh`
 
-3. Restart the containers
-`docker compose up -d`
+3. Install <br>
+`pip install --no-cache-dir -r requirements.txt`
 
 4. Check if it worked <br>
-`docker compose exec web sh` <br>
 `python -m pip list` <br>
+
+## Making changes in the compose or dockerfile
+
+1. Rebuild the image<br>
+`docker compose build`
+
+2. Restart the containers<br> 
+`docker compose up -d`
 
 ## Whats missing
 
 - Tailwind
 - I am planning on improving the security and performance
 - Production environment
-- Deployment Server (Currently it only includes the Django Server for devs. It shouldnt be used for production.)
+- Deployment Server *(This templates runs the django server for dev purposes. It must not be used in production.)*
 
