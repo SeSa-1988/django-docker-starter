@@ -1,7 +1,11 @@
-# Project Title
-
-Basic structure of a new docker + django + postgresql + tailwind project
+# Template for new Docker + Django + Postgres + Tailwind Projects
+Basic structure of a new docker + django + postgresql + tailwind project.
+The goal is to provide a comfortable starting point for new projects.
 Its based on this: https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/django/
+
+WARNING: 
+This is only a dev environment. A production ready version is going to follow.
+Since i am still learning, there might be configuration errors.
 
 ## Getting Started
 
@@ -14,7 +18,7 @@ Its based on this: https://github.com/docker/awesome-compose/tree/master/officia
 ### Installing
 
 1. Clone the repository:
-git clone https://github.com/yourusername/yourproject.git
+git clone https://github.com/SeSa-1988/django-docker-starter.git
 
 2. Copy `.env.example` to `.env` and fill in the necessary environment variables:
 cp .env.example .env
@@ -25,7 +29,9 @@ docker compose build
 4. Start the django project. replace webapp with your chosen name
 docker-compose run web django-admin startproject webapp /usr/src/app
 
-5. Configure DB
+5. Attach to the web container
+
+6. Configure DB by editing your settings.py file
 
 # settings.py
 
@@ -44,14 +50,13 @@ DATABASES = {
     }
 }
 
-
-6. Run 
+7. Run 
 docker compose up
 
-7. Create your own superuser
-$ python manage.py createsuperuser
+8. Create your own superuser
+python manage.py createsuperuser
 
-8. Run migrations (necessar?)
+9. Run migrations (necessar?)
 python manage.py migrate
 
 
