@@ -62,9 +62,12 @@ DATABASES = {
 8. Create your own superuser <br>
 `python manage.py createsuperuser`
 
-9. Run migrations (necessar?) <br>
-`python manage.py migrate`
+9. Run migrations <br>
+`python manage.py migrate`<br>
+*Note: I am not sure if this is needed.*
 
+1.  Start your project<br>
+https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 
 ## Installing new python packages
 
@@ -72,17 +75,19 @@ DATABASES = {
 to requirements.txt
 
 2. Rebuild the image<br>
-`docker-compose build`
+`docker compose build`
 
 3. Restart the containers
-`docker-compose up -d`
+`docker compose up -d`
 
 4. Check if it worked <br>
-`docker-compose exec web sh` <br>
+`docker compose exec web sh` <br>
 `python -m pip list` <br>
 
 ## Whats missing
 
+- Tailwind
+- I am planning on improving the security and performance
 - Production environment
 - Deployment Server (Currently it only includes the Django Server for devs. It shouldnt be used for production.)
 
