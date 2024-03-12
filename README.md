@@ -1,11 +1,14 @@
 # Template for new Docker + Django + Postgres + Tailwind Projects
-Basic structure of a new docker + django + postgresql + tailwind project.
-The goal is to provide a comfortable starting point for new projects.
-Its based on this: https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/django/
 
-WARNING: 
+Basic structure of a new docker + django + postgresql + tailwind project.
+The goal is to provide a comfortable starting point for new projects with this tech stack.
+
+Its based on this: https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/django/
+*(It didnt work for me)*
+
+**WARNING:** 
 This is only a dev environment. A production ready version is going to follow.
-Since i am still learning, there might be configuration errors.
+Since i am still learning, there might be configuration errors. Use at your own risk.
 
 ## Getting Started
 
@@ -17,22 +20,24 @@ Since i am still learning, there might be configuration errors.
 
 ### Installing
 
-1. Clone the repository:
-git clone https://github.com/SeSa-1988/django-docker-starter.git
+1. Clone the repository: <br>
+`git clone https://github.com/SeSa-1988/django-docker-starter.git`
 
-2. Copy `.env.example` to `.env` and fill in the necessary environment variables:
-cp .env.example .env
+2. Copy .env.example to .env and fill in the necessary environment variables:<br>
+`cp .env.example .env`
 
-3. Start the services using Docker Compose:
-docker compose build
+3. Start the services using Docker Compose:<br> 
+`docker compose build`
 
 4. Start the django project. replace webapp with your chosen name
-docker-compose run web django-admin startproject webapp /usr/src/app
+docker-compose <br>
+`run web django-admin startproject webapp /usr/src/app`
 
-5. Attach to the web container
+5. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
 
 6. Configure DB by editing your settings.py file
 
+```python
 # settings.py
 
 import os
@@ -49,37 +54,35 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+```
 
-7. Run 
-docker compose up
+7. Run <br>
+`docker compose up`
 
-8. Create your own superuser
-python manage.py createsuperuser
+8. Create your own superuser <br>
+`python manage.py createsuperuser`
 
-9. Run migrations (necessar?)
-python manage.py migrate
+9. Run migrations (necessar?) <br>
+`python manage.py migrate`
 
 
-# Installing new packages
+## Installing new python packages
 
-1. add package 
+1. Add package 
 to requirements.txt
 
-2. rebuild the image
-docker-compose build
+2. Rebuild the image<br>
+`docker-compose build`
 
-3. restart the containers
-docker-compose up -d
+3. Restart the containers
+`docker-compose up -d`
 
-4. check if it worked
-docker-compose exec web sh
-python -m pip list
+4. Check if it worked <br>
+`docker-compose exec web sh` <br>
+`python -m pip list` <br>
 
-## Running the tests
+## Whats missing
 
-pass
-
-## Deployment
-
-pass
+- Production environment
+- Deployment Server (Currently it only includes the Django Server for devs. It shouldnt be used for production.)
 
