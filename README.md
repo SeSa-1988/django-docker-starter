@@ -1,9 +1,7 @@
 # Template and Step-by-Step Instructions for new Docker + Django + Postgres + Tailwind Projects
 
-Basis template and instructions to create a dockerized development (and later deployment environment) with:
-Docker, Django, Postgresql, Tailwind, Adminer, HTMX
-
-The goal is to provide a comfortable starting point for new projects with this tech stack. 
+The goal is to provide a comfortable starting point for new projects with this tech stack:
+Docker, Django, Postgresql, Tailwind, Adminer, HTMX 
 
 **WARNING:** 
 This is only a dev environment. A production ready version is going to follow.
