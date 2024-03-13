@@ -1,6 +1,6 @@
 # Template and Step-by-Step Instructions for new Docker + Django + Postgres + Tailwind Projects
 
-The goal is to provide a comfortable starting point for new projects with this tech stack:
+The goal is to provide a comfortable starting point for new projects with this tech stack: <br>
 Docker, Django, Postgresql, Tailwind, Adminer, HTMX 
 
 **WARNING:** 
@@ -34,7 +34,7 @@ Since i am still learning, there might be configuration errors. Use at your own 
 
 4. Optional: Rename the project folder
 `mv project yourchosenname` <br />
-*(Within the project and the files the reference is "project", even though you have a custom foldername)*
+*(This way in the settings etc. the project is named "project", while you can have a custom foldername)*
 
 5. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
 `make shell`
@@ -162,34 +162,32 @@ urlpatterns = [
 10. Restart docker
 `make restart`
 
-#### 3. Start with your proejct
+#### 3. Start
 
 1. Run the containers<br>
-`docker compose up`
+`make start`
 
-2. Open a new terminal (on host)
-
-3. Check the status of docker: <br>
+2. Check the status of docker: <br>
 `docker ps`
 
-4. Start the shell in the web container:
+3. Start the shell in the web container:
 `make shell`
 
-5. Create your own superuser <br> (in web docker)
+4. Create your own superuser <br> (in web docker)
 `maker superuser`
 
-6.  Run migrations <br>
+5.  Run migrations <br>
 `make migrations`<br>
 *Note: I am not sure if this is needed.*
 
-7.   Start your project<br>
+6.   Start your project<br>
 https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 
 ## Installing new python packages
 
 1. Add package to requirements.txt
 
-2. Run Shell<br>
+2. Run Shell in Django Container<br>
 `make shell`
 
 3. Install (and check if it worked) <br>
@@ -197,7 +195,9 @@ https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 
 ## Making changes in the compose or dockerfile
 
-1. Rebuild the image and restart<br>
+1. Do your changes
+
+2. Rebuild the image and restart<br>
 `make rebuild`
 
 ## Whats missing
