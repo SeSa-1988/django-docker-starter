@@ -41,6 +41,7 @@ services:
       - POSTGRES_NAME=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - RUNNING_IN_DOCKER=true
     depends_on:
       - db
   

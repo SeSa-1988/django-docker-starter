@@ -27,22 +27,21 @@ Since i am still learning, there might be configuration errors. Use at your own 
 2. Copy .env.example to .env and fill in the necessary environment variables:<br>
 `cp .env.example .env`
 
-3. Start the services using Docker Compose:<br> 
-`docker compose build`<br>
-**Note: Tailwind throws an error, until you have finished the steps in the django tailwind installation section.*
+3. Start the postgres and django container:<br> 
+`docker compose build web db`<br>
 
 4. Start the django project. <br>
 `run web django-admin startproject project /usr/src/app` <br />
 *(don't rename here)*
 
-5. Optional: Rename the project folder
+4. Optional: Rename the project folder
 `mv project yourchosenname` <br />
 *(Within the project and the files the reference is "project", even though you have a custom foldername)*
 
-1. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
-`docker compose exec web sh`
+5. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
+`make shell`
 
-1. Configure DB by editing your settings.py file
+6. Configure DB by editing your settings.py file
 
 ```python
 # settings.py
@@ -102,13 +101,18 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 ```
+5. Restart the containers (this time including the tailwind container)
+`make restart`
 
-5. Install Tailwind CSS dependencies, by running the following command:
+6. Start a shell in the django container
+`make shell`
+
+7. Install Tailwind CSS dependencies, by running the following command in the django container: <br>
 ```python
 python manage.py tailwind install
 ```
 
-6. The Django Tailwind comes with a simple base.html template located at your_tailwind_app_name/templates/base.html. You can always extend or delete it if you already have a layout.
+8. The Django Tailwind comes with a simple base.html template located at your_tailwind_app_name/templates/base.html. You can always extend or delete it if you already have a layout.
 
 If you are not using the base.html template that comes with Django Tailwind, add `{% tailwind_css %}` to the base.html template:
 
@@ -124,7 +128,7 @@ If you are not using the base.html template that comes with Django Tailwind, add
 
 The `{% tailwind_css %}` tag includes Tailwind's stylesheet.
 
-7. Add and configure Browser Reload it to INSTALLED_APPS in settings.py:
+8. Add and configure Browser Reload it to INSTALLED_APPS in settings.py:
 
 ```python
 INSTALLED_APPS = [
@@ -158,8 +162,7 @@ urlpatterns = [
 ````
 
 10. Restart docker
-`docker compose down`
-`docker compose up`
+`make restart`
 
 #### 3. Start with your proejct
 
@@ -172,13 +175,13 @@ urlpatterns = [
 `docker ps`
 
 4. Start the shell in the web container:
-`docker compose exec web sh`
+`make shell`
 
 5. Create your own superuser <br> (in web docker)
-`python manage.py createsuperuser`
+`maker superuser`
 
 6.  Run migrations <br>
-`python manage.py migrate`<br>
+`make migrations`<br>
 *Note: I am not sure if this is needed.*
 
 7.   Start your project<br>
@@ -189,21 +192,15 @@ https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 1. Add package to requirements.txt
 
 2. Run Shell<br>
-`docker compose exec web sh`
+`make shell`
 
-3. Install <br>
-`pip install --no-cache-dir -r requirements.txt`
-
-4. Check if it worked <br>
-`python -m pip list` <br>
+3. Install (and check if it worked) <br>
+`make install`
 
 ## Making changes in the compose or dockerfile
 
-1. Rebuild the image<br>
-`docker compose build`
-
-2. Restart the containers<br> 
-`docker compose up -d`
+1. Rebuild the image and restart<br>
+`make rebuild`
 
 ## Whats missing
 

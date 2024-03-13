@@ -11,8 +11,8 @@ RUN apk update && apk add --no-cache postgresql-dev gcc python3-dev musl-dev
 COPY ./app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# DEV Only: Install Node.js and npm (Nodejs is needed for tailwind in dev)
-RUN apk add --no-cache nodejs npm
+# DEV only Packages: Nodejs/npm is needed for tailwind in dev. make is for comfort :)
+RUN apk add --no-cache nodejs npm make
 
 COPY ./app .
 
