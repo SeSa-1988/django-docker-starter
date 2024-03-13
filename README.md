@@ -1,6 +1,6 @@
 # Template and Step-by-Step Instructions for new Docker + Django + Postgres + Tailwind Projects
 
-Basis template and instructions to create a dockerized development (and later deployment envirnment) with:
+Basis template and instructions to create a dockerized development (and later deployment environment) with:
 Docker, Django, Postgresql, Tailwind, Adminer, HTMX
 
 The goal is to provide a comfortable starting point for new projects with this tech stack. 
@@ -31,14 +31,18 @@ Since i am still learning, there might be configuration errors. Use at your own 
 `docker compose build`<br>
 **Note: Tailwind throws an error, until you have finished the steps in the django tailwind installation section.*
 
-4. Start the django project. replace webapp with your chosen name
-docker-compose <br>
-`run web django-admin startproject webapp /usr/src/app`
+4. Start the django project. <br>
+`run web django-admin startproject project /usr/src/app` <br />
+*(don't rename here)*
 
-5. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
+5. Optional: Rename the project folder
+`mv project yourchosenname` <br />
+*(Within the project and the files the reference is "project", even though you have a custom foldername)*
+
+1. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
 `docker compose exec web sh`
 
-6. Configure DB by editing your settings.py file
+1. Configure DB by editing your settings.py file
 
 ```python
 # settings.py
