@@ -60,6 +60,8 @@ DATABASES = {
 }
 ```
 
+7. Optional: Make changes to /app/.editorconfig
+
 #### 2. Django Tailwind
 
 *This repo uses this django-tailwind package: https://django-tailwind.readthedocs.io/* - I copied the steps 2-12 in here, so you dont have to switch documents.
