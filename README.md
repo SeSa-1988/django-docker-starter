@@ -223,7 +223,7 @@ Option 2: Attach your shell to the container with `make shell` and use `exit` to
 
 
 1. Create your own superuser (in web docker)<br>
-`maker superuser`
+`make superuser`
 
 1.   Read more on how to start with django<br>
 https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
