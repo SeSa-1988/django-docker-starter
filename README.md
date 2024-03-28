@@ -36,7 +36,7 @@ You need these on your host:
 2. Copy .env.example to .env and fill in the necessary environment variables:<br>
 `cp .env.example .env`
 
-3. Optional: In the compose.yaml rename the images:<br>
+1. Optional: In the compose.yaml rename the images:<br>
 `image: django-server:latest` <br>
 `image: tailwind-server:latest` <br >
 Example <br>
@@ -255,4 +255,5 @@ https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
   - Optimizing structure and order of the build process
 - Production environment
 - Deployment Server *(This templates runs the django server for dev purposes. It must not be used in production.)*
+- Psycopg3 instead of 2
 
