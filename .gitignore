@@ -74,3 +74,5 @@ pip-log.txt
 coverage.xml
 htmlcov/
 nosetests.xml
+*/.ruff-cache/
+*/.mypy_cache/

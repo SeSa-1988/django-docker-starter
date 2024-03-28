@@ -1,7 +1,14 @@
-# Template and Step-by-Step Instructions for new Docker + Django + Postgres + Tailwind Projects
+# Python template for a SaaS Project.
 
-The goal is to provide a comfortable starting point for new projects with this tech stack: <br>
-Docker, Django, Postgresql, Tailwind, Adminer, HTMX 
+The goal is to provide a comfortable starting point with step by step Instructions for SaaS projects with this tech stack: <br>
+- Docker
+- Django
+- Postgresql (instead of sqlite)
+- Adminer (optional gui to access the db)
+- Tailwind (CSS Framework)
+- HTMX (Interactive interfaces without JS)
+- Ruff (Code Quality. Python linter and Formatter. Very fast.) https://pypi.org/project/ruff/
+- MyPy (Code Quality. Static Type checker) https://mypy.readthedocs.io/en/stable/getting_started.html
 
 **WARNING:** 
 This is only a dev environment. A production ready version is going to follow.
@@ -11,9 +18,14 @@ Since i am still learning, there might be configuration errors. Use at your own 
 
 ### Prerequisites
 
-- Docker
-- Docker Compose
+You need these on your host:
+- Docker (Docker compose)
 - Git
+
+Also these packages. Preferably in a python virtual environment.
+- Pre-Commit `pip install pre-commit` (To run ruff before every git commit) https://pre-commit.com
+- Ruff `pip install ruff`
+- MyPy (`pip install mypy`)
 
 ### Installing
 
@@ -164,7 +176,7 @@ urlpatterns = [
 10. Restart docker
 `make restart`
 
-#### 3. Start
+#### 3. Finalize the setup
 
 1. Run the containers<br>
 `make start`
@@ -172,28 +184,38 @@ urlpatterns = [
 2. Check the status of docker: <br>
 `docker ps`
 
-3. Start the shell in the web container:
+3. Initialize git and pre-commit
+`git init` <br>
+`pre-commit install` <br>
+
+4. Make your initial commit
+git commit -m "Initial commit"
+
+6. Run shell in container <br>
 `make shell`
 
-4. Create your own superuser <br> (in web docker)
+7. Create your own superuser <br> (in web docker)
 `maker superuser`
 
-5.  Run migrations <br>
+8.  Run migrations <br>
 `make migrations`<br>
 *Note: I am not sure if this is needed.*
 
-6.   Start your project<br>
+9.   Start your project<br>
 https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
+
 
 ## Installing new python packages
 
-1. Add package to requirements.txt
+1. Add package to requirements.txt with the exact version
 
 2. Run Shell in Django Container<br>
 `make shell`
 
 3. Install (and check if it worked) <br>
 `make install`
+
+(Alternatively use `pip install libraryname`, then get the version `libraryname --version` and add it to the requirements.txt)
 
 ## Making changes in the compose or dockerfile
 
@@ -202,8 +224,9 @@ https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 2. Rebuild the image and restart<br>
 `make rebuild`
 
-## Whats missing
+## Todos:
 
+- Including ruff, pytest and mypy into the container. Not sure about the pre commit.
 - I am planning on improving security and performance
   - Running on non root user
   - Optimizing structure and order of the build process
