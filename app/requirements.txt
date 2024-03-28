@@ -9,3 +9,8 @@ psycopg2-binary==2.9.9
 sqlparse==0.4.4
 tzdata==2024.1
 django-tailwind[reload]==3.8.0 #dev-version
+pytest==8.1.1
+pytest-cov==4.1.0
+ruff==0.3.2
+pre-commit==3.6.2
+mypy==1.9.0

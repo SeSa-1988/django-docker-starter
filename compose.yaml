@@ -30,9 +30,10 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile-app
+    image: django-server:latest
     stdin_open: true
     tty: true 
-    command: python manage.py runserver 0.0.0.0:8000
+    # command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     volumes:
@@ -49,6 +50,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile-app
+    image: tailwind-server:latest
     command: python manage.py tailwind start
     volumes:
       - ./app:/usr/src/app

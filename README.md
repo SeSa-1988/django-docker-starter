@@ -1,6 +1,9 @@
 # Python template for a SaaS Project.
 
-The goal is to provide a comfortable starting point with step by step Instructions for SaaS projects with this tech stack: <br>
+This is my step by step process for new SaaS projects.
+
+You have no idea, what you are doing, but you want to do it right. At least that has been my goal. So i decided to go with Docker, Code Quality checks, Django and Tailwind + HTMX. This is the tech stack:<br>
+
 - Docker
 - Django
 - Postgresql (instead of sqlite)
@@ -22,36 +25,36 @@ You need these on your host:
 - Docker (Docker compose)
 - Git
 
-Also these packages. Preferably in a python virtual environment.
-- Pre-Commit `pip install pre-commit` (To run ruff before every git commit) https://pre-commit.com
-- Ruff `pip install ruff`
-- MyPy (`pip install mypy`)
-
 ### Installing
 
 #### 1. Basic Installation
 
 1. Clone the repository: <br>
-`git clone https://github.com/SeSa-1988/django-docker-starter.git`
+`git clone https://github.com/SeSa-1988/django-docker-starter.git .`
+*(If you encounter an issue since your folder is not empty. Repeat the command without "." at the end, to create a subfolder. You can move the content to your main folder after that.)*
 
 2. Copy .env.example to .env and fill in the necessary environment variables:<br>
 `cp .env.example .env`
 
-3. Start the postgres and django container:<br> 
-`docker compose build web db`<br>
+3. Optional: In the compose.yaml rename the images:<br>
+`image: django-server:latest` <br>
+`image: tailwind-server:latest` <br >
+Example <br>
+*image: myproject-django-server: latest*
 
-4. Start the django project. <br>
-`run web django-admin startproject project /usr/src/app` <br />
+1. Start the postgres and django container:<br> 
+`make rebuild`<br>
+
+1. Start the django project. <br>
+`make shell`<br>
+`django-admin startproject project /usr/src/app` <br />
 *(don't rename here)*
 
-4. Optional: Rename the project folder
+1. Optional: Rename the project folder
 `mv project yourchosenname` <br />
 *(This way in the settings etc. the project is named "project", while you can have a custom foldername)*
 
-5. Attach to the web container (or use Visual Studio Code with the extension "Dev Containers" to open the container)
-`make shell`
-
-6. Configure DB by editing your settings.py file
+1. Configure DB by editing your settings.py file (in the project folder). Add the import and replace the content of 'default'
 
 ```python
 # settings.py
@@ -72,7 +75,14 @@ DATABASES = {
 }
 ```
 
-7. Optional: Make changes to /app/.editorconfig
+7. In your compose.yaml (project folder) uncomment this line under web:<br>
+`command: python manage.py runserver 0.0.0.0:8000`
+
+8. Exit the shell `exit` and restart the docker container with `make restart`
+
+9. Run shell inside the docker an Run migrations (in web docker)<br>
+`make shell`<br>
+`make migrations`<br>
 
 #### 2. Django Tailwind
 
@@ -107,24 +117,27 @@ INSTALLED_APPS = [
 ]
 ```
 
-4. Make sure that the INTERNAL_IPS list is present in the settings.py file and contains the 127.0.0.1 ip address:
+4. Register the generated 'theme' app by adding the following line to settings.py file:
+`TAILWIND_APP_NAME = 'theme'`
+
+5. Make sure that the INTERNAL_IPS list is present in the settings.py file and contains the 127.0.0.1 ip address:
 ```python
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 ```
-5. Restart the containers (this time including the tailwind container)
+6. Restart the containers
 `make restart`
 
-6. Start a shell in the django container
+7. Start a shell in the django container
 `make shell`
 
-7. Install Tailwind CSS dependencies, by running the following command in the django container: <br>
+8. Install Tailwind CSS dependencies, by running the following command in the django container: <br>
 ```python
 python manage.py tailwind install
 ```
 
-8. The Django Tailwind comes with a simple base.html template located at your_tailwind_app_name/templates/base.html. You can always extend or delete it if you already have a layout.
+9. The Django Tailwind comes with a simple base.html template located at your_tailwind_app_name/templates/base.html. You can always extend or delete it if you already have a layout.
 
 If you are not using the base.html template that comes with Django Tailwind, add `{% tailwind_css %}` to the base.html template:
 
@@ -140,30 +153,30 @@ If you are not using the base.html template that comes with Django Tailwind, add
 
 The `{% tailwind_css %}` tag includes Tailwind's stylesheet.
 
-8. Add and configure Browser Reload it to INSTALLED_APPS in settings.py:
+10. Add and configure Browser Reload it to INSTALLED_APPS in settings.py:
 
 ```python
 INSTALLED_APPS = [
   # other Django apps
   'tailwind',
   'theme',
-  'django_browser_reload'
+  'django_browser_reload' #dev only
 ]
 ```
 
-8. Staying in settings.py, add the middleware:
+11. Staying in settings.py, add the middleware:
 
 ```python
 MIDDLEWARE = [
   # ...
-  'django_browser_reload.middleware.BrowserReloadMiddleware',
+  'django_browser_reload.middleware.BrowserReloadMiddleware', #dev only
   # ...
 ]
 ```
 
 The middleware should be listed after any that encode the response, such as Django’s GZipMiddleware. The middleware automatically inserts the required script tag on HTML responses before `</body>` when DEBUG is True.
 
-9. Include django_browser_reload URL in your root url.py:
+12. Include django_browser_reload URL in your root url.py:
 
 ```python
 from django.urls import include, path
@@ -173,35 +186,46 @@ urlpatterns = [
 ]
 ````
 
-10. Restart docker
+13. Restart docker
 `make restart`
 
-#### 3. Finalize the setup
 
-1. Run the containers<br>
-`make start`
+#### 3. Optional: First Steps
 
-2. Check the status of docker: <br>
+Important:
+
+(on host) means these commands should be run in your project folder on your local machine
+
+(in web docker) means that commands should be run in your web docker container in the /app/ folder. 
+
+#### Howto run commands in the container?
+
+Option 1: Use VS Code Dev Containers extension 
+https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers
+(folder `src/usr/app/`)
+
+Option 2: Attach your shell to the container with `make shell` and use `exit` to get out
+
+#### First Steps
+
+1. Check the status of docker: (on host) <br>
 `docker ps`
 
-3. Initialize git and pre-commit
+1. Attach to the server in VSCode
+(folder `src/usr/app/`)
+
+1. Initialize git (on host)
 `git init` <br>
-`pre-commit install` <br>
 
-4. Make your initial commit
-git commit -m "Initial commit"
+1. Make your initial commit (on host)
+`git add .`
+`git commit -m "Initial commit"`
 
-6. Run shell in container <br>
-`make shell`
 
-7. Create your own superuser <br> (in web docker)
+1. Create your own superuser (in web docker)<br>
 `maker superuser`
 
-8.  Run migrations <br>
-`make migrations`<br>
-*Note: I am not sure if this is needed.*
-
-9.   Start your project<br>
+1.   Read more on how to start with django<br>
 https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 
 
@@ -226,7 +250,6 @@ https://docs.djangoproject.com/en/5.0/intro/tutorial01/#creating-the-polls-app
 
 ## Todos:
 
-- Including ruff, pytest and mypy into the container. Not sure about the pre commit.
 - I am planning on improving security and performance
   - Running on non root user
   - Optimizing structure and order of the build process

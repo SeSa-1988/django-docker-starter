@@ -22,5 +22,21 @@ superuser:
 update: 
 	install migrate ;
 
-.PHONY: install run-django migrate migrations superuser update
+pytest:
+	pytest /usr/src/app/tests
+
+pytestcov:
+	pytest /usr/src/app/tests --cov
+	# coverage html
+
+tests:
+	ruff check /usr/src/app/
+	mypy /usr/src/app/
+	pytest /usr/src/app/tests
+	pytest /usr/src/app/tests --cov
+
+install-deps:
+	pip install -r /usr/src/app/requirements.txt
+
+.PHONY: install run-django migrate migrations superuser update pytest pytestcov tests install-deps
 
